@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/Verify/page.js", "app/(components)/verifyFrom/VerifyFrom.js", "app/Signup/api/route.js", "app/Changepassword/[token]/page.js", "app/NewChat/[chatbot]/page.js", "app/(components)/Chatdata/Chatdata.js", "app/(components)/chatbots/Chatbot.tsx", "app/(components)/dashboardform/Dashboardfrom.tsx", "app/(components)/conversionform/Conversionfrom.js", "app/(components)/conversiondata/Conversiondata.js", "app/Aboutus/page.js"],
+  "exclude": ["node_modules"]
+}

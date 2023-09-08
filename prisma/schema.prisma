@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model nextUser {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstname String
+  lastname  String
+  password  String
+  Verify    Boolean  @default(false)
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  newChat newChat[]
+}
+model newChat {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  nextUser nextUser @relation(fields: [nextUserId], references: [id])
+  nextUserId String @db.ObjectId
+  Converstion Converstion[]
+  createdAt  DateTime   @default(now())  
+   @@unique([name, nextUserId])
+}
+
+
+model Converstion{
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  answer  String
+  question String
+  newChat newChat @relation(fields: [newChatId], references: [id])
+  newChatId String @db.ObjectId
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const axios = require('axios');
+// const { PrismaClient } = require('@prisma/client');
+
+// // Initialize Prisma client
+// const prisma = new PrismaClient();
+
+// // Replace YOUR_API_KEY with the actual value
+// const apiKey = 'YOUR_API_KEY';
+
+// async function generateResponse(prompt) {
+//   const response = await axios.post('https://api.chat-gpt.com/v1/completion', {
+//     prompt: prompt,
+//     max_tokens: 100,
+//     n: 1,
+//     stop_sequence: ['\n']
+//   }, {
+//     headers: {Authorization: `Bearer ${apiKey}`}
+//   });
+
+//   return response.data.choices[0].text.trim();
+// }
+
+// async function handleNewMessage(chatId, message) {
+//   // Retrieve relevant chat record from database
+//   const chatRecord = await prisma.newChat.findUnique({
+//       where: { id: chatId },
+//       include :{ Converstion : true}
+//    });
+  
+//    // Generate AI response based on user's input
+//    const aiResponse = await generateResponse(message);
+   
+//    // Add user's message to conversation history 
+//    await prisma.conversation.create({
+//        data:{ 
+//            question:message,
+//            answer : aiResponse ,
+//            newChat:{
+//                connect:{id :chatId }
+//             }
+//         }
+//      })
+     
+//      // Update last active time for this chat 
+//      await prisma.newChat.update({
+//          where:{ id :chatId},
+//          data:{
+//              updatedAt:new Date()
+//           }
+//       })
+
+//     return aiResponse;
+// }
